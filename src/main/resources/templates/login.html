@@ -7,7 +7,41 @@
     <link href="c/base.css" rel="stylesheet" type="text/css">
     <link href="c/toefl.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="j/jQuery.js"></script>
+    <script>
+        $(function () {
+            var $form =$("input[class*='login_input']");
+            // 进行登录操作
+            $(".login_Button").click(function () {
+                if ($(".login_inputYhm") == '') {
+                    alert('用户名不能为空');
+                    return false;
+                } else if ($(".login_inputMm") == '') {
+                    alert('密码不能为空');
+                    return false;
+                } else if ($(".login_inputYzm") == '') {
+                    alert('验证码不能为空');
+                    return false;
+                }  else {
+                    $.ajax({
+                        type : "POST",
+                        url : "user/login",
+                        data : $form,
+                        success : function (data) {
+                            if(data=="success"){
+                                alert('登录成功',{icon: 1},function () {
+                                    window.location = 'index.html';
+                                });
+                            }else {
+                                alert('登录失败',{icon: 2});
+                            }
 
+                        }
+                    })
+                }
+            })
+
+        })
+    </script>
 </head>
 
 <body>
@@ -42,9 +76,9 @@
     <div class="login">
         <div class="login_left">
             <h3 class="login_h3">欢迎登录人人托福</h3>
-            <div class="login_sr"><input type="text" class="login_inputYhm" value="用户名"></div>
-            <div class="login_sr"><input type="text" class="login_inputMm" value="密码"></div>
-            <div class="login_sr fn-clear"><input name="" type="text" class="login_inputYzm" value="验证码">
+            <div class="login_sr"><input type="text" class="login_inputYhm" value="用户名" name="loginname"></div>
+            <div class="login_sr"><input type="text" class="login_inputMm" value="密码" name="password"></div>
+            <div class="login_sr fn-clear"><input name="code" type="text" class="login_inputYzm" value="验证码" >
                 <div class="login_inputYzmPic"><img src="i/yzm.png"></div>
                 <a href="###" class="login_inputYzmH">看不清，还一张</a></div>
             <div class="login_xieyi"><input name="" type="checkbox" value=""
@@ -91,5 +125,6 @@
         <div class="footerTxet">©2014 – xuanke.com All rights reserved. 京ICP备14022672号-1</div>
     </div>
 </div>
+
 </body>
 </html>
