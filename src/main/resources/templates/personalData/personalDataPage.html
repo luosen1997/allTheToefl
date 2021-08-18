@@ -1,0 +1,158 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<base th:href="${#request.contextPath}+'/'">
+	<title>用户中心-上传头像</title>
+	<link href="c/base.css" rel="stylesheet" type="text/css">
+	<link href="c/toefl.css" rel="stylesheet" type="text/css">
+	<script src="j/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="js/userinfor.js">
+	</script>
+</head>
+<script>
+$("#saveBtn").click(function (){
+	$.ajax({
+		type: "POST",
+		url: "user/edit",
+		data: $('#form001').serialize(),
+		dataType: JSON,
+		success:function (result){
+			if (result=="success"){
+				alert("保存成功");
+				window.location="personalData/userHomepage";
+			}
+		},
+		error:function (){
+			alert("保存失败");
+			window.location="personalData/userHomepage";
+		}
+	});
+});
+
+$("#savepwBtn").click(function (){
+	if ($("#newPassword1")!=$("#newPassword2")){
+		alert("两次输入的密码不一致");
+		return false;
+	}else {
+		$.ajax({
+			type: "POST",
+			url: "user/updatePassword",
+			data: $('#editPassword').serialize(),
+			dataType: JSON,
+			success: function (result) {
+				if (result == "success") {
+					alert("保存成功");
+					window.location = "personalData/userHomepage";
+				}
+			},
+			error: function () {
+				alert("保存失败");
+				window.location = "personalData/userHomepage";
+			}
+		});
+	}
+});
+
+</script>
+
+<body>
+<div class="doc910 fn-right">
+	<div class="flcb_cardMenu">
+		<ul>
+			<li class="on">
+				<a href="###" target="infor" id="basic">基本资料</a>
+			</li>
+			<li >
+				<a href="###" target="infor" id="teacherBasic">基本资料(教师)</a>
+			</li>
+			<li>
+				<a href="###" target="infor" id="imgUpload">头像设置</a>
+			</li>
+			<li>
+				<a href="###" target="infor" id="passwordChange" >密码设置</a>
+			</li>
+		</ul>
+	</div>
+
+	<div class="userCenter" style="display: block;" id="basicContent">
+		<form id="form001" action="user/edit" method="post">
+		<dl>
+			<dt>用户名：</dt>
+			<dd><input type="text" class="userCenter_input" th:value="${user.loginName}" name="loginName" readonly></dd>
+		</dl>
+		<dl>
+			<dt>性别：</dt>
+			<dd>
+				<div class="userCenter_radio">
+					<select name="sex" >
+						<option th:value="0" th:selected="${user.sex==0}">女</option>
+						<option th:value="1" th:selected="${user.sex==1}">男</option>
+						<option th:value="2" th:selected="${user.sex==2}">其他</option>
+					</select>
+				</div>
+			</dd>
+		</dl>
+		<dl>
+			<dt>邮箱：</dt>
+			<dd><input type="text" class="userCenter_input" th:value="${user.email}" name="email"></dd>
+		</dl>
+		<dl>
+			<dt>电话：</dt>
+			<dd><input type="text" class="userCenter_input" th:value="${user.phoneNum}" name="phoneNum"></dd>
+		</dl>
+		<dl>
+			<dt>出生日期：</dt>
+			<dd>
+				<input th:type="text" class="userCenter_input" th:value="${#dates.format(user.birthday,'yyyy-MM-dd')}" name="birthday">
+<!--				<input th:text="${#dates.format(user.birthday,'yyyy-MM-dd')}"></input>-->
+			</dd>
+		</dl>
+		<dl>
+			<dt>个性签名：</dt>
+			<dd>
+				<textarea style="width:310px;height: 200px" rows="" cols="" class="userCenter_input" th:text="${user.personalizeSignature}" name="personalizeSignature"></textarea>
+			</dd>
+		</dl>
+		<dl>
+			<dd>
+				<button id="saveBtn" style="width: 70px;background-color: #32cd32" class="userCenter_input" type="submit">保存</button>
+			</dd>
+		</dl>
+		</form>
+	</div>
+
+	<form id="editPassword" action="user/updatePassword" method="post">
+	<div class="userCenter" style="display: none;" id="passwordChangeContent">
+		<dl>
+			<dt>用户名：</dt>
+			<dd><input type="text" class="userCenter_input" th:value="${user.loginName}" name="loginName" readonly></dd>
+		</dl>
+		<dl>
+			<dt>密码：</dt>
+			<dd><input id="oldPassword" type="password" class="userCenter_input"></dd>
+		</dl>
+		<dl>
+			<dt>新密码：</dt>
+			<dd><input id="newPassword1" type="password" class="userCenter_input"></dd>
+		</dl><dl>
+			<dt>请再次输入密码：</dt>
+			<dd><input id="newPassword2" type="password" class="userCenter_input"></dd>
+		</dl>
+		<dl>
+			<dt></dt>
+			<dd>
+				<button id="savepwBtn" style="width: 70px;background-color: #32cd32" class="userCenter_input" type="submit">保存</button>
+			</dd>
+		</dl>
+	</div>
+	</form>
+
+
+
+</div>
+
+</body>
+
+</html>

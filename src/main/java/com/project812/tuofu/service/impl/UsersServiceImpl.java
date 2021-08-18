@@ -52,4 +52,19 @@ public class UsersServiceImpl implements UsersService {
     public String register(Users user) {
         return usersDao.register(user);
     }
+
+    @Override
+    public Users getUserById(Integer id) {
+        return usersDao.getUserById(id);
+    }
+
+    @Override
+    public void updateUser(Users user) {
+        usersDao.updateUser(user);
+    }
+
+    @Override
+    public void updatePassword(Users user) {
+        usersDao.updatePassword(user);
+    }
 }

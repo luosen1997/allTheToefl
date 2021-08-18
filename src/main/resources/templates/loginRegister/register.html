@@ -3,11 +3,10 @@
 <head>
     <meta charset="utf-8">
     <base th:href="${#request.contextPath}+'/'">
-    <title>登录页</title>
+    <title>注册页</title>
     <link href="c/base.css" rel="stylesheet" type="text/css">
     <link href="c/toefl.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="j/jQuery.js"></script>
-
 </head>
 
 <body>
@@ -15,8 +14,8 @@
     <div class="header">
         <div class="logo"><a href="####"><img src="i/logo.png"></a></div>
         <div class="headerLink">
-            <!--            <a class="###" href="登陆注册/登录页.html">登录</a>-->
-            <a class="###" href="登陆注册/注册页.html">注册</a>
+            <a class="###" href="loginRegister/login.html">登录</a>
+            <!--            <a class="###" href="登陆注册/注册页.html">注册</a>-->
         </div>
     </div>
 </div>
@@ -41,9 +40,13 @@
 <div class="doc1180">
     <div class="login">
         <div class="login_left">
-            <h3 class="login_h3">欢迎登录人人托福</h3>
-            <div class="login_sr"><input type="text" class="login_inputYhm" placeholder="用户名" id="loginName" name="loginName"></div>
-            <div class="login_sr"><input type="text" class="login_inputMm" placeholder="密码" id="password" name="password"></div>
+            <h3 class="login_h3">新用户注册</h3>
+            <div class="login_sr"><input type="text" class="login_inputYhm" placeholder="用户名" id="loginName"
+                                         name="loginName"></div>
+            <div class="login_sr"><input type="text" class="login_inputMm" placeholder="密码" id="password"
+                                         name="password"></div>
+            <div class="login_sr"><input type="text" class="login_inputEmail" placeholder="邮箱" id="email" name="email">
+            </div>
             <div class="login_sr fn-clear"><input id="inputCode" style="float:left;" type="text"
                                                   class="login_inputYzm" placeholder="验证码">
                 <div class="login_inputYzmPic">
@@ -54,8 +57,9 @@
             <div class="login_xieyi"><input id="login_xieyi" type="checkbox"
                                             style="margin-right:10px; vertical-align:middle;">我同意<a href="###">《人人托福网服务协议》</a>
             </div>
-            <button class="b" type="submit"><a type="submit" class="login_Button"> 登 录 </a></button>
-            <div class="login_zcymm"><a href="###">注册帐号</a><a href="###" class="login_zhmm">找回密码</a></div>
+            <button class="b" type="submit"><a type="submit" class="login_Button"> 注 册 </a></button>
+            <div class="login_zcymm"><span>已有帐号？</span><a href="###">马上登录</a><a href="###" class="login_zhmm">找回密码</a>
+            </div>
         </div>
         <div class="login_right">
             <div class="login_rightH3">您也可以使用以下方式登录：</div>
@@ -96,43 +100,6 @@
     </div>
 </div>
 
-<!--<script>-->
-<!--    $(function () {-->
-<!--        var $form =$("input[class*='login_input']");-->
-<!--        // 进行登录操作-->
-<!--        $(".login_Button").click(function () {-->
-<!--            if ($(".login_inputYhm") == '') {-->
-<!--                alert('用户名不能为空');-->
-<!--                return false;-->
-<!--            } else if ($(".login_inputMm") == '') {-->
-<!--                alert('密码不能为空');-->
-<!--                return false;-->
-<!--            } else if ($(".login_inputYzm") == '') {-->
-<!--                alert('验证码不能为空');-->
-<!--                return false;-->
-<!--            }  else {-->
-<!--                $.ajax({-->
-<!--                    type : "POST",-->
-<!--                    url : "user/login",-->
-<!--                    data : $form,-->
-<!--                    success : function (data) {-->
-<!--                        if(data=="success"){-->
-<!--                            // alert('登录成功',function () {-->
-<!--                            window.location ='systemManagePeople/login-admin.html';-->
-<!--                            // });-->
-<!--                        }else {-->
-<!--                            alert('登录失败',{icon: 2});-->
-<!--                        }-->
-
-<!--                    }-->
-<!--                })-->
-<!--            }-->
-<!--        })-->
-
-<!--    })-->
-<!--</script>-->
-
-<!--验证码处理-->
 <script>
     //页面加载时，生成随机验证码
     window.onload = function () {
@@ -179,7 +146,7 @@
             // 信息完整检测
             console.log("loginName: " + document.getElementById("loginName").value);
             console.log("password: " + document.getElementById("password").value);
-            // console.log("userEmail: " + document.getElementById("userEmail").value);
+            console.log("email: " + document.getElementById("email").value);
             // console.log(document.getElementById("userName").value.length <= 0)
             if (document.getElementById("loginName").value.length <= 0) {
                 alert("请输入用户名！");
@@ -189,10 +156,10 @@
                 alert("请输入密码！");
                 return false;
             }
-            // if (document.getElementById("userEmail").value.length <= 0) {
-            //     alert("请输入邮箱！");
-            //     return false;
-            // }
+            if (document.getElementById("email").value.length <= 0) {
+                alert("请输入邮箱！");
+                return false;
+            }
 
             //获取显示区生成的验证码
             var checkCode = document.getElementById("checkCode").innerHTML;
@@ -210,19 +177,18 @@
             } else {
                 // alert("验证码正确！");
                 $.ajax({
-                    type : "POST",
-                    url : "user/login",
-                    data : $form,
-                    success : function (data) {
-                        if(data=="user"||data=="teacher"){
-                            alert('登陆成功');
-                            window.location ='home.html';
-                        }else if (data=='admin'){
-                            alert('登陆成功');
-                            window.location ='systemManagePeople/login-admin.html';
-                        }else if(data=='false'){
-                            alert('登陆失败');
-                            window.location ='登录注册/登录.html';
+                    type: "POST",
+                    url: "user/register",
+                    data: $form,
+                    success: function (data) {
+                        if (data == "success") {
+                            // alert('登录成功',function () {
+                            alert('注册成功');
+                            window.location = 'loginRegister/login.html';
+                            // });
+                        } else {
+                            alert('注册失败');
+                            window.location = 'loginRegister/register.html'
                         }
 
                     }
@@ -231,6 +197,5 @@
         });
     })
 </script>
-
 </body>
 </html>

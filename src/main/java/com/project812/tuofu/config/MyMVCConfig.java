@@ -24,9 +24,15 @@ public class MyMVCConfig implements WebMvcConfigurer {
         registry.addViewController("公开课/名师推荐.html").setViewName("公开课/名师推荐");
 
 
-        registry.addViewController("登陆注册/登录页.html").setViewName("登陆注册/登录页");
-        registry.addViewController("登陆注册/注册页.html").setViewName("登陆注册/注册页");
+        registry.addViewController("loginRegister/login.html").setViewName("loginRegister/login");
+        registry.addViewController("loginRegister/register.html").setViewName("loginRegister/register");
 
+        registry.addViewController("personalData/userHomePage.html").setViewName("personalData/userHomePage");
+        registry.addViewController("personalData/personalDataPage.html").setViewName("personalData/personalDataPage");
+        registry.addViewController("personalData/myCourse.html").setViewName("personalData/myCourse");
+        registry.addViewController("personalData/myGroup.html").setViewName("personalData/myGroup");
+        registry.addViewController("personalData/myCastle.html").setViewName("personalData/myCastle");
+        registry.addViewController("personalData/myToeflMan.html").setViewName("personalData/myToeflMan");
 
 
         registry.addViewController("systemManagePeople/login-admin.html").setViewName("systemManagePeople/login-admin");

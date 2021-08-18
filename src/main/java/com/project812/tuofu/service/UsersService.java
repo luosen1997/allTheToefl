@@ -22,4 +22,10 @@ public interface UsersService {
     public Admin login2(Admin admin);
 
     public String register(Users user);
+
+    Users getUserById(Integer id);
+
+    void updateUser(Users user);
+
+    void updatePassword(Users user);
 }

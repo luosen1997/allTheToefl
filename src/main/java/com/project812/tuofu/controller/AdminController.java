@@ -33,7 +33,7 @@ public class AdminController {
             model.addAttribute("actives",list);
             return "systemManagePeople/systemManage-activity";
     }
-    //@ResponseBody
+    @ResponseBody
     @PostMapping(value = "/addActive")
     public String addActive(String activeName,String classTitle,String activeDesc, MultipartFile file){
         Actives actives = new Actives();

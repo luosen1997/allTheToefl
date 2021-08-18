@@ -10,8 +10,10 @@ import com.project812.tuofu.service.TeacherService;
 import com.project812.tuofu.service.UsersService;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -82,6 +84,47 @@ public class UserController {
         usersService.register(user);
         return "success";
     }
+
+
+
+    @GetMapping("id")
+    public String getUserById(Model model){
+        int id =1;
+        Users user = usersService.getUserById(id);
+        System.out.println(user);
+        model.addAttribute("user",user);
+        return "personalData/userHomePage";
+    }
+
+    @GetMapping("name")
+    public String getUserById01(Model model){
+        int id =1;
+        Users user = usersService.getUserById(id);
+        model.addAttribute("user",user);
+        return "personalData/personalDataPage";
+    }
+
+    @InitBinder//这段代码用于日期格式的转化
+    public void initBinder(ServletRequestDataBinder dataBinder) {
+        dataBinder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
+    }
+
+    @PostMapping("/edit")
+    public String userUpdate(Users user){
+        user.setUserId(1);
+        usersService.updateUser(user);
+        return "personalData/personalDataPage";
+    }
+
+    @PostMapping("/updatePassword")
+    public String updatePassword(Users user){
+        user.setUserId(1);
+        user.getPassword();
+        usersService.updatePassword(user);
+        System.out.println(user);
+        return  "personalData/personalDataPage";
+    }
+
 
 
     @GetMapping(value = {"/getUsers"})
