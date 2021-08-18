@@ -1,0 +1,133 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+<meta charset="utf-8">
+    <base th:href="${#request.contextPath}+'/'">
+
+    <title>系统管理-网站链接</title>
+<link href="c/base.css" rel="stylesheet" type="text/css">
+<link href="c/toefl.css" rel="stylesheet" type="text/css">
+<link href="c/bootstrap.min.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="j/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="j/bootstrap.min.js"></script>
+<script type="text/javascript" src="j/lrtk.js"></script>
+</head>
+<body>
+<script>
+    function save01() {
+        $.ajax({
+            type: "POST",
+            url:"admin/addLink",
+            data:$('#form01').serialize(),
+            success:function (result) {
+                if (result == "success") {
+                    alert("提交成功");
+                    window.location="admin/getWebLinks";
+                }
+            },error: function () {
+                alert("提交失败");
+                window.location="admin/getWebLinks";
+            }
+        })
+    }
+    $(function(){
+        /** 删除员工绑定点击事件 */
+        $("#delete").click(function () {
+            var boxs = $("input[type='checkbox'][name='box']");
+            /** 获取到用户选中的复选框  */
+            var checkedBoxs = boxs.filter(":checked");
+            var ids = checkedBoxs.map(function () {
+                return this.value;
+            })
+            alert('真的删除行么');
+            window.location = "admin/deleteLink?ids=" + ids.get();
+        })
+    });
+
+</script>
+
+<div class="doc1180 paddingT20 fn-clear">
+  <div class="myPost_Theme" style="height: 80vh;">
+            	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="myPost_Table">
+                  <tr class="myPost_Th">
+                  	<th><input type="checkbox" name="" id="" value="" /></th>
+                    <th >连接名称</th>
+                    <th>连接地址</th>
+                    <th>连接描述</th>
+                    <th>相关单位</th>
+                    <th>创建日期</th>
+                  </tr>
+
+
+                    <tr th:each="link :${links}">
+                        <td><input type="checkbox"  th:name="'box'" th:value="${link.linkId}"></td>
+                        <td class="myPost_ThemeTitle"><img src="i/myPost_Theme.png" th:text="${link.linkName}"></td>
+                        <td th:text="${link.linkUrl}"></td>
+                        <td th:text="${link.linkDesc}"></td>
+                        <td th:text="${link.relateUnit}"></td>
+                        <td th:text="${#calendars.format(link.lastModify,'yyyy-MM-dd')}"></td>
+                    </tr>
+
+				</table>
+				
+				<div id="" class="" style="margin-top: 40px;">
+					<a href="#" class="btn btn-success" data-toggle="modal" data-target=".modal">创建</a>
+					<a href="#" class="btn btn-warning">编辑</a>
+					<a  class="btn btn-danger" id="delete">删除</a>
+				</div>
+            </div>
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+<!--表单元素-->
+<div class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">连接信息</h4>
+      </div>
+      <div class="modal-body">
+        	<form method="post" id="form01">
+			  <div class="form-group">
+			    <label >连接名称</label>
+			    <input type="text" class="form-control"  placeholder="名称" name="linkName">
+			  </div>
+			  <div class="form-group">
+			    <label >连接地址</label>
+			    <input type="text" class="form-control"  placeholder="地址" name="linkUrl">
+			  </div>
+			  
+			  <div class="form-group">
+			    <label >相关单位</label>
+			   	<input type="text" class="form-control"  placeholder="相关单位" name="relateUnit">
+			  </div>
+			  <div class="form-group">
+			    <label >描述</label>
+			   	<textarea name="linkDesc" rows="5" cols="" class="form-control"></textarea>
+			  </div>
+			</form>
+        
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" onclick="save01()" >保存</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+<!-- 代码结束 -->
+</body>
+</html>

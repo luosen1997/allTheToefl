@@ -1,0 +1,171 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<base th:href="${#request.contextPath}+'/'">
+
+		<title>系统管理-讲师列表</title>
+		<link href="c/base.css" rel="stylesheet" type="text/css">
+		<link href="c/toefl.css" rel="stylesheet" type="text/css">
+		<link href="c/bootstrap.min.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="j/jquery-2.1.0.js"></script>
+		<script type="text/javascript" src="j/bootstrap.min.js"></script>
+		<script type="text/javascript" src="j/lrtk.js"></script>
+	</head>
+
+	<body>
+<script>
+	$(function(){
+		/** 删除员工绑定点击事件 */
+		$("#delete").click(function () {
+			var boxs = $("input[type='checkbox'][name='box']");
+			/** 获取到用户选中的复选框  */
+			var checkedBoxs = boxs.filter(":checked");
+			var ids = checkedBoxs.map(function () {
+				return this.value;
+			})
+			window.location = "user/deleteUsers?ids=" + ids.get();
+		})
+	});
+
+	$(function(){
+
+		$("#freeze").click(function () {
+			var boxs = $("input[type='checkbox'][name='box']");
+
+			var checkedBoxs = boxs.filter(":checked");
+			var ids = checkedBoxs.map(function () {
+				return this.value;
+			})
+			window.location = "user/freeze?ids=" + ids.get();
+		})
+	});
+	$(function(){
+
+		$("#thaw").click(function () {
+			var boxs = $("input[type='checkbox'][name='box']");
+
+			var checkedBoxs = boxs.filter(":checked");
+			var ids = checkedBoxs.map(function () {
+				return this.value;
+			})
+			window.location = "user/thaw?ids=" + ids.get();
+		})
+	});
+
+	$(function() {
+		$("#prePage").click(function () {
+			var oldPage = $("#currPage").val();
+			if(oldPage>1){
+				$("#currPage").val(parseInt(oldPage)-1);
+				$("#schForm").submit();
+			}else {
+				alert("当前是第一页！");
+			}
+
+		})
+
+	})
+
+	$(function () {
+		$("#nextPage").click(function () {
+			var oldPage = $("#currPage").val();
+			var totalPage=$("#totalPage").val();
+			var cp=parseInt(oldPage)+1
+			if(cp>totalPage){
+				alert("当前是最后一页！");
+			}else{
+				$("#currPage").val(cp);
+				$("#schForm").submit();
+			}
+		})
+
+	})
+</script>
+		<div class="doc1180 paddingT20 fn-clear container">
+			<div>
+				<input type="hidden" id="totalPage" th:value="${totalPage}">
+				<form class="form-inline" action="user/getUsers" method="get" id="schForm">
+					<input type="hidden" id="currPage" name="currPage" th:value="${startPage}">
+					<div class="form-group">
+						<label for="exampleInputName2">用户名</label>
+						<input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe" name="loginName" th:value="${loginName}">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputEmail2">状态</label>
+						<select class="form-control" name="status" >
+							<option value="">全部</option>
+							<option  th:selected="${status==2}" value="2">正常</option>
+							<option  th:selected="${status==1}" value="1">冷冻</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="exampleInputEmail2">等级</label>
+						<select class="form-control" name="userLevel">
+							<option value="">全部</option>
+							<option th:each="level :${levelList}" th:selected="${level.id==userLevel}"  th:value="${level.id}" th:text="${level.levelName}" ></option>
+						</select>
+					</div>
+					<button type="submit" class="btn btn-primary">搜索</button>
+				</form>
+
+			</div>
+			<div class="myPost_Theme" style="height: 80vh;margin-top: 50px;">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="myPost_Table">
+					<tr class="myPost_Th">
+						<th><input type="checkbox" name="" id="" value="" /></th>
+						<th>头像</th>
+						<th>用户名称</th>
+						<th>性别</th>
+						<th>邮箱</th>
+						<th>电话</th>
+						<th>出生日期</th>
+						<th>注册时间</th>
+						<th>等级</th>
+						<th>状态</th>
+					</tr>
+
+					<tr th:each="userList :${users}">
+						<td><input type="checkbox"  th:name="'box'" th:value="${userList.userId}"></td>
+						<td class="myPost_ThemeTitle"><img src="i/30x30.png"></td>
+						<td>
+							<a style="color: red;" href="个人资料/普通用户-首页.html" th:text="${userList.loginName}">aaa</a>
+						</td>
+						<td th:if="${userList.sex==1}" th:value="男">男</td>
+						<td th:if="${userList.sex==2}" th:value="女">女</td>
+						<td th:text="${userList.email}"></td>
+						<td th:text="${userList.phoneNum}"></td>
+						<td th:text="${#calendars.format(userList.birthday,'yyyy-MM-dd')}"></td>
+						<td th:text="${#calendars.format(userList.registerTime,'yyyy-MM-dd')}"></td>
+						<td th:text="${userList.levelName}"></td>
+						<td th:if="${userList.status==1}" th:value="1">冷冻</td>
+						<td th:if="${userList.status==2}" th:value="2">正常</td>
+					</tr>
+
+
+				</table>
+
+				<div class="pageList" style="width: 500px;float: right;">
+					<ul>
+						<li>
+							<a  class="pret" id="prePage">上一页</a>
+						</li>
+						<li>
+							<a  class="next" id="nextPage">下一页</a>
+						</li>
+					</ul>
+				</div>
+
+				<div id="" class="" style="margin-top: 40px;width: 400px; float: left;">
+					<a class="btn btn-success" id="freeze">冷冻</a>
+					<a class="btn btn-primary" id="thaw">解冻</a>
+					<a class="btn btn-danger" id="delete">删除</a>
+				</div>
+			</div>
+
+		</div>
+
+	</body>
+
+</html>

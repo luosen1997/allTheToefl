@@ -28,9 +28,9 @@
                         data : $form,
                         success : function (data) {
                             if(data=="success"){
-                                alert('登录成功',{icon: 1},function () {
-                                    window.location = 'index.html';
-                                });
+                                // alert('登录成功',function () {
+                                    window.location ='systemManagePeople/login-admin.html';
+                                // });
                             }else {
                                 alert('登录失败',{icon: 2});
                             }

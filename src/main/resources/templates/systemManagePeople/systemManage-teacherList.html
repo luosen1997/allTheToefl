@@ -1,0 +1,236 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+	<head>
+		<meta charset="utf-8">
+		<base th:href="${#request.contextPath}+'/'">
+		<title>系统管理-讲师列表</title>
+		<link href="c/base.css" rel="stylesheet" type="text/css">
+		<link href="c/toefl.css" rel="stylesheet" type="text/css">
+		<link href="c/bootstrap.min.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="j/jquery-2.1.0.js"></script>
+		<script type="text/javascript" src="j/bootstrap.min.js"></script>
+		<script type="text/javascript" src="j/lrtk.js"></script>
+	</head>
+
+	<body>
+	<script>
+		$(function(){
+
+			$("#freeze").click(function () {
+				var boxs = $("input[type='checkbox'][name='box']");
+
+				var checkedBoxs = boxs.filter(":checked");
+				var ids = checkedBoxs.map(function () {
+					return this.value;
+				})
+				window.location = "user/freezeTeacher?ids=" + ids.get();
+			})
+		});
+		$(function(){
+
+			$("#thaw").click(function () {
+				var boxs = $("input[type='checkbox'][name='box']");
+
+				var checkedBoxs = boxs.filter(":checked");
+				var ids = checkedBoxs.map(function () {
+					return this.value;
+				})
+				window.location = "user/thawTeacher?ids=" + ids.get();
+			})
+		});
+
+
+
+		$(function() {
+			$("#prePage").click(function () {
+				var oldPage = $("#currPage").val();
+				if(oldPage>1){
+					$("#currPage").val(parseInt(oldPage)-1);
+					$("#schForm").submit();
+				}else {
+					alert("当前是第一页！");
+				}
+
+			})
+
+		})
+
+		$(function () {
+			$("#nextPage").click(function () {
+				var oldPage = $("#currPage").val();
+				var totalPage=$("#totalPage").val();
+				var cp=parseInt(oldPage)+1
+				if(cp>totalPage){
+					alert("当前是最后一页！");
+				}else{
+					$("#currPage").val(cp);
+					$("#schForm").submit();
+				}
+			})
+
+		})
+
+		$(function () {
+			$("#submit01").click(function () {
+				$("#form01").submit();
+			})
+		})
+
+		$(function(){
+			/** 删除员工绑定点击事件 */
+			$("#delete").click(function () {
+				var boxs = $("input[type='checkbox'][name='box']");
+				/** 获取到用户选中的复选框  */
+				var checkedBoxs = boxs.filter(":checked");
+				var ids = checkedBoxs.map(function () {
+					return this.value;
+				})
+				window.location = "user/deleteTeachers?ids=" + ids.get();
+			})
+		});
+	</script>
+
+		<div class="doc1180 paddingT20 fn-clear container">
+			<div>
+				<input type="hidden" id="totalPage" th:value="${totalPage}">
+				<form class="form-inline" action="user/getTeachers" method="get" id="schForm">
+					<input type="hidden" id="currPage" name="currPage" th:value="${startPage}">
+					<div class="form-group">
+						<label for="exampleInputName2">用户名</label>
+						<input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe" name="userName" th:value="${userName}">
+					</div>
+					<button type="submit" class="btn btn-primary">搜索</button>
+				</form>
+
+			</div>
+			<div class="myPost_Theme" style="height: 80vh;margin-top: 50px;">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" class="myPost_Table">
+					<tr class="myPost_Th">
+						<th><input type="checkbox" name=""  value="" /></th>
+						<th>头像</th>
+						<th>用户名称</th>
+						<th>性别</th>
+						<th>邮箱</th>
+						<th>电话</th>
+						<th>出生日期</th>
+						<th>创建时间</th>
+						<th>课程资源</th>
+						<th>状态</th>
+					</tr>
+					<tr th:each="teacher :${teachers}">
+						<td><input type="checkbox"  th:name="'box'" th:value="${teacher.teacherId}"></td>
+						<td class="myPost_ThemeTitle"><img src="i/30x30.png"></td>
+
+						<td>
+							<a style="color: red;" href="个人资料/普通用户-首页.html" th:text="${teacher.loginName}">aaa</a>
+						</td>
+						<td th:if="${teacher.sex==1}" th:value="1">男</td>
+						<td th:if="${teacher.sex==2}" th:value="2">女</td>
+						<td th:text="${teacher.email}"></td>
+						<td th:text="${teacher.phoneNum}"></td>
+						<td th:text="${#calendars.format(teacher.birthday,'yyyy-MM-dd')}"></td>
+						<td th:text="${#calendars.format(teacher.createTime,'yyyy-MM-dd')}"></td>
+						<td>
+							<button class="btn btn-primary" type="button">
+								文章 <span class="badge">4</span>
+							</button>
+							<button class="btn btn-warning" type="button">
+								课程 <span class="badge">4</span>
+							</button>
+						</td>
+						<td th:if="${teacher.status==1}" th:value="1">冷冻</td>
+						<td th:if="${teacher.status==2}" th:value="2">正常</td>
+					</tr>
+				</table>
+
+				<div class="pageList" style="width: 500px;float: right;">
+
+
+					<ul>
+						<li th:each="navigatepage :${navigatepageNums}">
+							<a th:href="'user/getTeachers?currPage='+ ${navigatepage}" th:text="${navigatepage}"></a>
+						</li>
+						<li>
+							<a  class="pret" id="prePage">上一页</a>
+						</li>
+						<li>
+							<a  class="next" id="nextPage">下一页</a>
+						</li>
+					</ul>
+				</div>
+
+				<div id="" class="" style="margin-top: 40px;width: 400px; float: left;">
+					<a  class="btn btn-success" data-toggle="modal" data-target=".modal">创建</a>
+					<a  class="btn btn-warning" data-toggle="modal" data-target=".modal" id="freeze" >冷冻</a>
+					<a  class="btn btn-primary" data-toggle="modal" data-target=".modal" id="thaw"   >解冻</a>
+					<a  class="btn btn-danger" id="delete">删除</a>
+				</div>
+			</div>
+
+		</div>
+
+		<!--表单元素-->
+		<div class="modal fade" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">连接信息</h4>
+					</div>
+					<div class="modal-body">
+						<form method="post" id="form01" action="user/addTeacher">
+							<div class="form-group">
+								<label>用户名</label>
+								<input type="text" class="form-control" placeholder="名称" name="loginName">
+							</div>
+							<div class="form-group">
+								<label>真实姓名</label>
+								<input type="text" class="form-control" placeholder="真实姓名" name="userName">
+							</div>
+							<div class="form-group">
+								<label>性别</label>
+								<select class="form-control" name="sex">
+									<option value="1">男</option>
+									<option value="2">女</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label>学历</label>
+								<select class="form-control" name="educationId">
+									<option th:each="education :${educationList}" th:value="${education.educationId}" th:text="${education.educationName}"></option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label>邮箱</label>
+								<input type="email" class="form-control" placeholder="email" name="email">
+							</div>
+							<div class="form-group">
+								<label>电话</label>
+								<input type="text" class="form-control" placeholder="电话" name="phoneNum">
+							</div>
+							<div class="form-group">
+								<label>生日</label>
+								<input type="datetime" class="form-control" placeholder="例如：1999-9-9" name="birthday">
+							</div>
+							<div class="form-group">
+								<label>自我介绍</label>
+								<textarea name="introduce" rows="5" cols="" class="form-control" ></textarea>
+							</div>
+						</form>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-primary" id="submit01">保存</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+
+		<!-- 代码结束 -->
+	</body>
+
+</html>

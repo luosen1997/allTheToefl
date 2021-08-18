@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project812.tuofu.dao.WebLinksDao">
+    <!-- 实体类属性与数据库的列的对应关系 -->
+    <resultMap type="com.project812.tuofu.pojo.Links" id="linksMap">
+        <!--column代表数据库中的列名  property代表实体类的属性   javaType代表在java中的数据类型  jdbcType代表在数据库中的数据类型 -->
+        <id column="link_id" property="linkId"/>
+        <result column="link_name" property="linkName"/>
+        <result column="link_url" property="linkUrl"/>
+        <result column="relate_unit" property="relateUnit"/>
+        <result column="link_desc" property="linkDesc"/>
+        <result column="last_modify" property="lastModify"/>
+
+    </resultMap>
+    <select id="getWebLinks" resultMap="linksMap">
+        select * from sys_link
+    </select>
+
+    <insert id="addLink" parameterType="links">
+        insert into sys_link (link_name,link_url,relate_unit,link_desc,last_modify) values (#{linkName},#{linkUrl},#{relateUnit},#{linkDesc},#{lastModify});
+    </insert>
+
+    <delete id="deleteLink" parameterType="String">
+        delete from sys_link where  link_id in(${ids})
+    </delete>
+</mapper>
+

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project812.tuofu.dao.TeacherDao">
+    <!-- 实体类属性与数据库的列的对应关系 -->
+    <resultMap type="com.project812.tuofu.pojo.Teacher" id="usersMap">
+        <!--column代表数据库中的列名  property代表实体类的属性   javaType代表在java中的数据类型  jdbcType代表在数据库中的数据类型 -->
+        <id column="teacher_id" property="teacherId"/>
+        <result column="login_name" property="loginName"/>
+        <result column="user_name" property="userName"/>
+        <result column="education_id" property="educationId"/>
+        <result column="phone_num" property="phoneNum"/>
+        <result column="img_url" property="imgUrl"/>
+        <result column="article_num" property="articleNum"/>
+        <result column="public_class_num" property="publicClassNum"/>
+        <result column="castle_class_num" property="castleClassNum"/>
+        <result column="phrase_num" property="phraseNum"/>
+        <result column="create_time" property="createTime"/>
+        <result column="last_modify" property="lastModify"/>
+    </resultMap>
+    <select id="getTeachers" parameterType="Teacher" resultMap="usersMap">
+        SELECT * FROM sys_teacher AS teacher LEFT JOIN dic_education AS  education ON teacher.education_id=education.education_id
+        <where>
+            <if test="loginName !=null and loginName !=''">
+                and login_name like '%${loginName}%'
+            </if>
+
+        </where>
+
+    </select>
+    <update id="freezeTeachers" parameterType="String">
+         update sys_teacher set status=1 where  teacher_id in(${ids})
+    </update>
+
+    <update id="thawTeachers" parameterType="String">
+         update sys_teacher set status=2 where  teacher_id in(${ids})
+    </update>
+
+    <insert id="addTeacher" parameterType="Teacher">
+        insert into sys_teacher (login_name,user_name,sex,education_id,email,phone_num,birthday,introduce,status,create_time) values (#{loginName},#{userName},#{sex},#{educationId},#{email},#{phoneNum},#{birthday},#{introduce},#{status},#{createTime});
+    </insert>
+
+    <delete id="deleteTeachers" parameterType="String">
+        delete from sys_teacher where  teacher_id in(${ids})
+    </delete>
+</mapper>
