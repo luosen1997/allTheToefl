@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,6 +34,55 @@ public class UserController {
 
     @Autowired
     EducationService educationService;
+
+    @ResponseBody
+    @PostMapping("/login")
+    public String login(String loginName, String password, HttpSession session ) {
+//        System.out.println("登录名"+loginName+"  "+password);
+        Users user = new Users();
+        user.setLoginName(loginName);
+        user.setPassword(password);
+
+        Teacher teacher = new Teacher();
+        teacher.setLoginName(loginName);
+        teacher.setPassword(password);
+
+        Admin admin = new Admin();
+        admin.setLoginName(loginName);
+        admin.setPassword(password);
+
+        if(usersService.login(user)!=null){
+
+            session.setAttribute("user",user);
+            return "user";
+        } else if(usersService.login1(teacher) != null){
+            System.out.println(666);
+            session.setAttribute("user",user);
+            return "teacher";
+        }else if(usersService.login2(admin) != null){
+
+
+            return "admin";
+        }
+        return "false";
+    }
+
+
+    @ResponseBody
+    @PostMapping("/register")
+    public String register(String loginName, String password, String email) {
+//        System.out.println(loginName);
+        Users user = new Users();
+        int i = 1;
+        user.setSex(1);
+        user.setLoginName(loginName);
+        user.setPassword(password);
+        user.setEmail(email);
+
+        usersService.register(user);
+        return "success";
+    }
+
 
     @GetMapping(value = {"/getUsers"})
     public String getUsers(String loginName,Integer status,Integer userLevel,Model model,Integer currPage){

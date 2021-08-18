@@ -1,29 +1,29 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8">
+    <meta charset="utf-8">
     <base th:href="${#request.contextPath}+'/'">
-<title>注册页</title>
-<link href="c/base.css" rel="stylesheet" type="text/css">
-<link href="c/toefl.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="j/jQuery.js"></script>
+    <title>注册页</title>
+    <link href="c/base.css" rel="stylesheet" type="text/css">
+    <link href="c/toefl.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="j/jQuery.js"></script>
 </head>
 
 <body>
 <div class="doc1180">
-	<div class="header">
-    	<div class="logo"><a href="####"><img src="i/logo.png"></a></div>
+    <div class="header">
+        <div class="logo"><a href="####"><img src="i/logo.png"></a></div>
         <div class="headerLink">
-        	<a class="###" href="登陆注册/登录页.html">登录</a>
-            <a class="###" href="登陆注册/注册页.html">注册</a>
+            <a class="###" href="登陆注册/登录页.html">登录</a>
+            <!--            <a class="###" href="登陆注册/注册页.html">注册</a>-->
         </div>
     </div>
 </div>
 <div class="menu">
-	<div class="doc1180">
-   	  <div class="menuLink">
-        	<ul class="fn-clear">
-            	<li><a href="###">首页</a></li>
+    <div class="doc1180">
+        <div class="menuLink">
+            <ul class="fn-clear">
+                <li><a href="###">首页</a></li>
                 <li><a href="###">托福人</a></li>
                 <li><a href="###">公开课</a></li>
                 <li><a href="###">群组聊</a></li>
@@ -32,39 +32,51 @@
             </ul>
         </div>
         <div class="fenxiang">
-        	<a href="#" class="weibo"><img src="i/weibo.png" ></a>
-            <a href="#" class="weixin"><img src="i/weixin.png" ></a>
+            <a href="#" class="weibo"><img src="i/weibo.png"></a>
+            <a href="#" class="weixin"><img src="i/weixin.png"></a>
         </div>
     </div>
 </div>
 <div class="doc1180">
-	<div class="login">
-    	<div class="login_left">
-       	  <h3 class="login_h3">新用户注册</h3>
-            <div class="login_sr"><input type="text" class="login_inputYhm" value="用户名"></div>
-            <div class="login_sr"><input type="text" class="login_inputMm" value="密码"></div>
-            <div class="login_sr"><input type="text" class="login_inputEmail" value="邮箱"></div>
-          <div class="login_sr fn-clear"><input name="" type="text" class="login_inputYzm" value="验证码"><div class="login_inputYzmPic"><img src="i/yzm.png"></div><a href="###" class="login_inputYzmH">看不清，还一张</a></div>
-            <div class="login_xieyi"><input name="" type="checkbox" value="" style="margin-right:10px; vertical-align:middle;">我同意<a href="###">《人人托福网服务协议》</a></div>
-            <div><a href="###" class="login_Button">注册</a></div>
-            <div class="login_zcymm"><span>已有帐号？</span><a href="###">马上登录</a><a href="###" class="login_zhmm">找回密码</a></div>
-      </div>
-      <div class="login_right">
-      	<div class="login_rightH3">您也可以使用以下方式登录：</div>
-        <div class="login_sanfang"><a href="###"><img src="i/login_wb.png">新浪微博</a></div>
-        <div class="login_sanfang"><a href="###"><img src="i/login_qq.png">QQ登录</a></div>
-        <div class="login_sanfang"><a href="###"><img src="i/login_qw.png">腾讯微博</a></div>
-        <div class="login_sanfang"><a href="###"><img src="i/login_rr.png">人人网</a></div>
-        <div class="login_shouquan">授权后表明你已同意 <a href="###">《人人托福网服务协议》</a></div>
-      </div>
+    <div class="login">
+        <div class="login_left">
+            <h3 class="login_h3">新用户注册</h3>
+            <div class="login_sr"><input type="text" class="login_inputYhm" placeholder="用户名" id="loginName"
+                                         name="loginName"></div>
+            <div class="login_sr"><input type="text" class="login_inputMm" placeholder="密码" id="password"
+                                         name="password"></div>
+            <div class="login_sr"><input type="text" class="login_inputEmail" placeholder="邮箱" id="email" name="email">
+            </div>
+            <div class="login_sr fn-clear"><input id="inputCode" style="float:left;" type="text"
+                                                  class="login_inputYzm" placeholder="验证码">
+                <div class="login_inputYzmPic">
+                    <div id="checkCode" class="code" onclick="createCode(4)"></div>
+                </div>
+                <span class="code_span" onclick="createCode(4)">看不清换一张</span></div>
+
+            <div class="login_xieyi"><input id="login_xieyi" type="checkbox"
+                                            style="margin-right:10px; vertical-align:middle;">我同意<a href="###">《人人托福网服务协议》</a>
+            </div>
+            <button class="b" type="submit"><a type="submit" class="login_Button"> 注 册 </a></button>
+            <div class="login_zcymm"><span>已有帐号？</span><a href="###">马上登录</a><a href="###" class="login_zhmm">找回密码</a>
+            </div>
+        </div>
+        <div class="login_right">
+            <div class="login_rightH3">您也可以使用以下方式登录：</div>
+            <div class="login_sanfang"><a href="###"><img src="i/login_wb.png">新浪微博</a></div>
+            <div class="login_sanfang"><a href="###"><img src="i/login_qq.png">QQ登录</a></div>
+            <div class="login_sanfang"><a href="###"><img src="i/login_qw.png">腾讯微博</a></div>
+            <div class="login_sanfang"><a href="###"><img src="i/login_rr.png">人人网</a></div>
+            <div class="login_shouquan">授权后表明你已同意 <a href="###">《人人托福网服务协议》</a></div>
+        </div>
     </div>
 </div>
 <div class="flink">
-  <div class="flinkTop"></div>
+    <div class="flinkTop"></div>
     <div class="flinkBody">
-    	<h3>友情链接</h3>
+        <h3>友情链接</h3>
         <ul>
-        	<li>友情连接友情连接</li>
+            <li>友情连接友情连接</li>
             <li>友情连接友情连接</li>
             <li>友情连接友情连接</li>
             <li>友情连接友情连接</li>
@@ -75,9 +87,9 @@
     </div>
 </div>
 <div class="footer">
-	<div class="doc1180">
-    	<div class="footerLink">
-        	<a href="###">人人托福</a>|
+    <div class="doc1180">
+        <div class="footerLink">
+            <a href="###">人人托福</a>|
             <a href="###">联系我们</a>|
             <a href="###">招聘信息</a>|
             <a href="###">合作媒体</a>|
@@ -87,5 +99,103 @@
         <div class="footerTxet">©2014 – xuanke.com All rights reserved. 京ICP备14022672号-1</div>
     </div>
 </div>
+
+<script>
+    //页面加载时，生成随机验证码
+    window.onload = function () {
+        createCode(4);
+    }
+
+    //生成验证码的方法
+    function createCode(length) {
+        var code = "";
+        var codeLength = parseInt(length); //验证码的长度
+        var checkCode = document.getElementById("checkCode");
+        ////所有候选组成验证码的字符，当然也可以用中文的
+        var codeChars = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+        //循环组成验证码的字符串
+        for (var i = 0; i < codeLength; i++) {
+            //获取随机验证码下标
+            var charNum = Math.floor(Math.random() * 62);
+            //组合成指定字符验证码
+            code += codeChars[charNum];
+        }
+        if (checkCode) {
+            //为验证码区域添加样式名
+            checkCode.className = "code";
+            //将生成验证码赋值到显示区
+            checkCode.innerHTML = code;
+        }
+    }
+
+</script>
+<script th:inline="javascript">
+    $(function () {
+        var $form = $("input[class*='login_input']");
+
+        $(".b").click(function () {
+            //协议检测
+            var login_xieyi = document.getElementById("login_xieyi");
+            // console.log("xieyi status:" + login_xieyi.checked);
+            if (!login_xieyi.checked) {
+                alert("请先阅读并同意《人人托福网服务协议》！");
+                return false;
+            }
+            // 信息完整检测
+            console.log("loginName: " + document.getElementById("loginName").value);
+            console.log("password: " + document.getElementById("password").value);
+            console.log("email: " + document.getElementById("email").value);
+            // console.log(document.getElementById("userName").value.length <= 0)
+            if (document.getElementById("loginName").value.length <= 0) {
+                alert("请输入用户名！");
+                return false;
+            }
+            if (document.getElementById("password").value.length <= 0) {
+                alert("请输入密码！");
+                return false;
+            }
+            if (document.getElementById("email").value.length <= 0) {
+                alert("请输入邮箱！");
+                return false;
+            }
+
+            //获取显示区生成的验证码
+            var checkCode = document.getElementById("checkCode").innerHTML;
+            //获取输入的验证码
+            var inputCode = document.getElementById("inputCode").value;
+            console.log(checkCode);
+            console.log(inputCode);
+            if (inputCode.length <= 0) {
+                alert("请输入验证码！");
+                return false;
+            } else if (inputCode.toUpperCase() !== checkCode.toUpperCase()) {
+                alert("验证码输入有误！");
+                createCode(4);
+                return false;
+            } else {
+                // alert("验证码正确！");
+                $.ajax({
+                    type: "POST",
+                    url: "user/register",
+                    data: $form,
+                    success: function (data) {
+                        if (data == "success") {
+                            // alert('登录成功',function () {
+                            alert('注册成功');
+                            window.location = '登陆注册/登录页.html';
+                            // });
+                        } else {
+                            alert('注册失败');
+                            window.location = '登陆注册/注册页.html'
+                        }
+
+                    }
+                })
+            }
+        });
+    })
+</script>
 </body>
 </html>

@@ -52,4 +52,51 @@
     <update id="thawUsers" parameterType="String">
          update sys_user set status=2 where  user_id in(${ids})
     </update>
+
+    <select id="login" resultMap="usersMap">
+        select * from sys_user where login_name = #{loginName} and password = #{password}
+    </select>
+
+    <select id="register" parameterType="Users">
+        insert into sys_user(login_name,password,email,sex) values(#{loginName},#{password},#{email},#{sex})
+    </select>
+
+    <resultMap type="com.project812.tuofu.pojo.Teacher" id="teacherMap">
+        <!--column代表数据库中的列名  property代表实体类的属性   javaType代表在java中的数据类型  jdbcType代表在数据库中的数据类型 -->
+        <id column="teacher_id" property="teacherId"/>
+        <result column="login_name" property="loginName"/>
+        <result column="password" property="password"/>
+        <result column="user_name" property="userName"/>
+        <result column="sex" property="sex"/>
+        <result column="email" property="email"/>
+        <result column="education_id" property="educationId"/>
+        <result column="phone_num" property="phoneNum"/>
+        <result column="birthday" property="birthday"/>
+        <result column="introduce" property="introduce"/>
+        <result column="img_url" property="imgUrl"/>
+        <result column="article_num" property="articleNum"/>
+        <result column="public_class_num" property="publicClassNum"/>
+        <result column="castle_class_num" property="castleClassNum"/>
+        <result column="phrase_num" property="phraseNum"/>
+        <result column="create_time" property="createTime"/>
+        <result column="status" property="status"/>
+        <result column="last_modify" property="lastModify"/>
+    </resultMap>
+
+    <select id="login1" resultMap="teacherMap">
+        select * from sys_teacher where login_name = #{loginName} and password = #{password}
+    </select>
+
+    <resultMap type="com.project812.tuofu.pojo.Admin" id="adminMap">
+        <!--column代表数据库中的列名  property代表实体类的属性   javaType代表在java中的数据类型  jdbcType代表在数据库中的数据类型 -->
+        <id column="id" property="id"/>
+        <result column="login_name" property="loginName"/>
+        <result column="password" property="password"/>
+    </resultMap>
+
+    <select id="login2" resultMap="adminMap">
+        select * from sys_admin where login_name = #{loginName} and password = #{password}
+    </select>
+
+
 </mapper>
