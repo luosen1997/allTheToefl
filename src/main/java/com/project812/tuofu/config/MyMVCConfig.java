@@ -27,6 +27,9 @@ public class MyMVCConfig implements WebMvcConfigurer {
         registry.addViewController("loginRegister/login.html").setViewName("loginRegister/login");
         registry.addViewController("loginRegister/register.html").setViewName("loginRegister/register");
 
+
+
+        registry.addViewController("personalData/userHomePageTeacher.html").setViewName("personalData/userHomePageTeacher");
         registry.addViewController("personalData/userHomePage.html").setViewName("personalData/userHomePage");
         registry.addViewController("personalData/personalDataPage.html").setViewName("personalData/personalDataPage");
         registry.addViewController("personalData/myCourse.html").setViewName("personalData/myCourse");
@@ -44,7 +47,7 @@ public class MyMVCConfig implements WebMvcConfigurer {
         registry.addViewController("systemManagePeople/systemManage-groupList.html").setViewName("systemManagePeople/systemManage-groupList");
         registry.addViewController("systemManagePeople/systemManage-openClassList.html").setViewName("systemManagePeople/systemManage-openClassList");
         registry.addViewController("systemManagePeople/systemManage-welfareCastleList.html").setViewName("systemManagePeople/systemManage-welfareCastleList");
-
+        registry.addViewController("openClass/main.html").setViewName("openClass/main");
     }
 
 

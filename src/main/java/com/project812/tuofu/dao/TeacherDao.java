@@ -16,4 +16,9 @@ public interface TeacherDao {
     public void addTeacher(Teacher teacher);
 
     public void deleteTeachers(String ids);
+
+
+    public void updatePassword(Teacher teacher);
+
+    public Teacher getTeacherById(Integer teacherId);
 }

@@ -109,4 +109,6 @@
     <update id="updatePassword">
         update sys_user set password=#{password} where user_id=#{userId}
     </update>
+
+
 </mapper>

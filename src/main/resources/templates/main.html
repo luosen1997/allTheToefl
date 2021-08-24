@@ -176,48 +176,25 @@
         <div class="index_itemR">
             <div class="index_itemRtitle">
                 <h3>最新公开课</h3>
-                <a href="###" class="index_itemRMore">更多</a>
+                <a href="openClass/main.html" class="index_itemRMore">更多</a>
             </div>
             <div class="index_itemROpen">
+                <div th:each="openClass:${session.openClassThree}">
                 <dl>
                     <dt class="now">
-                        <div class="index_itemROpenM">十二月</div>
-                        <div class="index_itemROpenD">28</div>
+                        <div class="index_itemROpenM" th:text="${#dates.format(openClass.startDate,'MM')}">十二月</div>
+                        <div class="index_itemROpenD" th:text="${#dates.format(openClass.startDate,'dd')}">28</div>
                     </dt>
                     <dd>
-                        <div class="index_itemROpenTitle"><a href="###">标题请控制字数234567人简介请控制字数加入人简介请控制字数加入</a></div>
+                        <div class="index_itemROpenTitle"><a href="openClass/main.html" th:text="${openClass.classTitle}">标题请控制字数234567人简介请控制字数加入人简介请控制字数加入</a></div>
                         <div class="index_itemROpenText">
-                            <span>17:30-21:00</span>
-                            <span>主讲：公开来看</span>
+                            <span th:text="${#dates.format(openClass.startTime,'HH:mm')}+'--'+${#dates.format(openClass.endTime,'HH:mm')}">17:30-21:00</span>
+                            <span th:text="${openClass.userName}">主讲：公开来看</span>
                         </div>
                     </dd>
                 </dl>
-                <dl>
-                    <dt>
-                        <div class="index_itemROpenM">十二月</div>
-                        <div class="index_itemROpenD">28</div>
-                    </dt>
-                    <dd>
-                        <div class="index_itemROpenTitle"><a href="###">标题请控制字数234567人简介请控制字数加入人简介请控制字数加入</a></div>
-                        <div class="index_itemROpenText">
-                            <span>17:30-21:00</span>
-                            <span>主讲：公开来看</span>
-                        </div>
-                    </dd>
-                </dl>
-                <dl>
-                    <dt>
-                        <div class="index_itemROpenM">十二月</div>
-                        <div class="index_itemROpenD">28</div>
-                    </dt>
-                    <dd>
-                        <div class="index_itemROpenTitle"><a href="###">标题请控制字数234567人简介请控制字数加入人简介请控制字数加入</a></div>
-                        <div class="index_itemROpenText">
-                            <span>17:30-21:00</span>
-                            <span>主讲：公开来看</span>
-                        </div>
-                    </dd>
-                </dl>
+                </div>
+
             </div>
 
         </div>

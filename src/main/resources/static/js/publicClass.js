@@ -23,7 +23,7 @@
 			$("#descContent").css("display","block");
 			$("#myClassContent").css("display","none");
 		})
-		$("#myClass").click(function(e) {
+		$("#myclassUp").click(function(e) {
 			$(".flcb_cardMenu>ul>li").removeClass("on");
 			$(e.currentTarget).parent().addClass("on");
 			$("#myclassContent").css("display","none");

@@ -67,4 +67,5 @@ public class UsersServiceImpl implements UsersService {
     public void updatePassword(Users user) {
         usersDao.updatePassword(user);
     }
+
 }

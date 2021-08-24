@@ -1,62 +1,154 @@
 <!doctype html>
-
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
 	<meta charset="utf-8">
+	<base th:href="${#request.contextPath}+'/'">
 	<title>我的公开课</title>
-	<link href="../c/base.css" rel="stylesheet" type="text/css">
-	<link href="../c/toefl.css" rel="stylesheet" type="text/css">
-	<link href="../c/bootstrap.min.css" rel="stylesheet" type="text/css">
-	<script src="../j/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+	<link href="c/base.css" rel="stylesheet" type="text/css">
+	<link href="c/toefl.css" rel="stylesheet" type="text/css">
+	<link href="c/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<script src="j/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 	<script src="js/publicClass.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
 <body>
+<script>
+
+	$(function() {
+		$("#prePage").click(function () {
+			var oldPage = $("#currPage").val();
+			if(oldPage>1){
+				$("#currPage").val(parseInt(oldPage)-1);
+				$("#schForm").submit();
+			}else {
+				alert("当前是第一页！");
+			}
+
+		})
+
+	})
+
+	$(function () {
+		$("#nextPage").click(function () {
+			var oldPage = $("#currPage").val();
+			var totalPage=$("#totalPage").val();
+			var cp=parseInt(oldPage)+1
+			if(cp>totalPage){
+				alert("当前是最后一页！");
+			}else{
+				$("#currPage").val(cp);
+				$("#schForm").submit();
+			}
+		})
+
+	})
+
+	$(function() {
+		$("#prePageAll").click(function () {
+			var oldPage = $("#currPageAll").val();
+			if(oldPage>1){
+				$("#currPageAll").val(parseInt(oldPage)-1);
+				$("#schFormAll").submit();
+			}else {
+				alert("当前是第一页！");
+			}
+
+		})
+
+	})
+
+	$(function () {
+		$("#nextPageAll").click(function () {
+			var oldPage = $("#currPageAll").val();
+			var totalPage=$("#totalPageAll").val();
+			var cp=parseInt(oldPage)+1
+			if(cp>totalPage){
+				alert("当前是最后一页！");
+			}else{
+				$("#currPageAll").val(cp);
+				$("#schFormAll").submit();
+			}
+		})
+
+	})
+
+	$(function () {
+		$("a[id^='dianZan_']").click(function () {
+			// var idNum =$(this).attr("id").replaceAll("dianZan_","");
+
+			var Num = $(this).parent().siblings(".zanNum");
+
+			var teacherId = $(this).parent().siblings(".teacherId").val();
+			var phraseNum = $(this).parent().siblings(".phraseNum").val();
+			$.ajax({
+				type: "POST",
+				url: "openClass/addPhraseNum",
+				data: {teacherId,
+					phraseNum},
+				success: function (result) {
+					if(result==0){
+						alert("重复点赞");
+					}else {
+						alert("点赞成功");
+						Num.text(result);
+					}
+				},
+			});
+		})
+	})
+
+</script>
 <div class="doc910 ">
 	<div class="flcb_cardMenu">
 		<ul>
 			<li class="on">
-				<a href="###" id = "myclass">我的公开课</a>
+				<a href="openClass/getClassById" id = "myclass">我的公开课</a>
 			</li>
 			<li >
-				<a href="###" id = "newclass">最新公开课</a>
+				<a href="javascript:void(0)" id = "newclass">最新公开课</a>
 			</li>
 			<li>
-				<a href="###" id="desc">听课指南</a>
-			</li>
-			<li>
-				<a href="###" id="myClass">我发布的公开课</a>
+				<a href="javascript:void(0)" id="desc">听课指南</a>
 			</li>
 		</ul>
-		<div style="position: absolute;right: 10px;">
-			<button type="button" class="btn btn-success " onclick="window.location.href='../公开课/公开课-发布.html'">
-				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 发布
-			</button>
-		</div>
+<!--		<div style="position: absolute;right: 10px;">-->
+<!--			<button type="button" class="btn btn-success " onclick="window.location.href='公开课/公开课-发布.html'">-->
+<!--				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 发布-->
+<!--			</button>-->
+<!--		</div>-->
 	</div>
 	<div id="myclassContent">
-		<div class="publiclass">
-			<dl>
+		<div class="publiclass" >
+			<input type="hidden" id="totalPage" th:value="${totalPage}">
+
+			<form class="form-inline" action="openClass/getClassById" method="get" id="schForm">
+				<input type="hidden" id="currPage" name="currPage" th:value="${startPage}">
+
+			<div th:each="openClass,openClassStat :${openClass}">
+
+			<dl >
+
 				<dt>
 					<div class="publiclass_rq">
-						<div class="publiclass_rqD">19日</div>
-						<div class="publiclass_rqM">10月</div>
+						<div class="publiclass_rqD" th:text="${#dates.format(openClass.startDate,'dd')}">19日</div>
+						<div class="publiclass_rqM" th:text="${#dates.format(openClass.startDate,'MM')}">10月</div>
 					</div>
-					<a href="#" class="publiclass_Pic"><img src="../i/270x155.jpg" width="270" height="155"></a>
+					<a href="javascript:void (0)" class="publiclass_Pic"><img src="i/270x155.jpg" width="270" height="155"></a>
 				</dt>
 				<dd>
 					<div class="flcb_cardClass">
-						<h3>托福英语口语强化班</h3>
-						<div class="flcb_cardNum"><span>12345</span>人购买</div>
+						<h3 th:text="${openClass.classTitle}">托福英语口语强化班</h3>
+						<div class="flcb_cardNum"><span th:text="${openClass.signUpNum}">12345</span>人购买</div>
 					</div>
-					<div class="flcb_cardTime">上课时间：<span>2015-10-29</span><span class="marginR15">12:30--15:30</span>上课地点：<span>YYY频道</span></div>
+					<div class="flcb_cardTime">上课时间：<span th:text="${#dates.format(openClass.startDate,'yyyy-MM-dd')}">2015-10-29</span><span class="marginR15" th:text="${#dates.format(openClass.startTime,'HH:mm')}+'--'+${#dates.format(openClass.endTime,'HH:mm')}">12:30--15:30</span>上课地点：<span th:text="${openClass.classMethod}">YYY频道</span></div>
 					<div class="flcb_cardTech">
 						<span class="first">主讲老师：</span>
-						<span class="teacherPic"><img src="../i/22x22.jpg"></span>
-						<span class="name">老师姓名</span>
-						<span class="zan"><a href="###"><img src="../i/icon_zan14x14.jpg"></a></span>
-						<span class="zanNum">(32)</span>
+						<span class="teacherPic"><img src="i/22x22.jpg"></span>
+						<span class="name" th:text="${openClass.userName}">老师姓名</span>
+						<span class="zan"><a href="javascript:void (0)" th:id="'dianZan_'+${openClassStat.index}"><img src="i/icon_zan14x14.jpg"></a></span>
+						<span class="zanNum" th:text="${openClass.phraseNum}" th:id="${openClassStat.index}"></span>
+						<input class="teacherId" type="hidden" th:value="${openClass.teacherId}" th:id="'teacherId'+${openClass.teacherId}">
+						<input class="phraseNum " type="hidden" th:id="'phraseNum'+${openClass.phraseNum}" th:value="${openClass.phraseNum}">
 					</div>
 					<div class="publiclass_Text">
 						<table border="0" cellspacing="0" cellpadding="0">
@@ -72,38 +164,30 @@
 
 					</div>
 					<div class="flcb_cardButton">
-						<a href="../公开课/main.html" target="_parent">课程明细</a>
+						<a href="openClass/main.html" target="_parent">课程明细</a>
 						<a href="">进该课程群</a>
 					</div>
 
 
 				</dd>
-			</dl>
 
+			</dl>
+			</div>
+			</form>
 		</div>
 		<div class="pageList">
 			<ul>
-				<li><span>1</span></li>
+				<li th:each="navigatepage :${navigatepageNums}">
+					<a th:href="'openClass/getClassById?currPage='+ ${navigatepage}" th:text="${navigatepage}"></a>
+				</li>
+<!--				<li>-->
+<!--					<a href="###">最后一页</a>-->
+<!--				</li>-->
 				<li>
-					<a href="###">2</a>
+					<a class="pret" id="prePage">上一页</a>
 				</li>
 				<li>
-					<a href="###">3</a>
-				</li>
-				<li>
-					<a href="###">4</a>
-				</li>
-				<li>
-					<a href="###">5</a>
-				</li>
-				<li>
-					<a href="###">最后一页</a>
-				</li>
-				<li>
-					<a href="###" class="pret">上一页</a>
-				</li>
-				<li>
-					<a href="###" class="next">下一页</a>
+					<a class="next" id="nextPage">下一页</a>
 				</li>
 			</ul>
 		</div>
@@ -112,26 +196,33 @@
 
 	<div id="newclassContent" style="display: none;">
 		<div class="publiclass">
+			<input type="hidden" id="totalPageAll" th:value="${totalPageAll}">
+			<form class="form-inline" action="openClass/getClassById" method="get" id="schFormAll">
+				<input type="hidden" id="currPageAll" name="currPageAll" th:value="${startPageAll}">
+				<input type="hidden" id="flag" name="flag" th:value="2">
+
+			<div th:each="openClassAll:${openClassAll}">
 			<dl>
 				<dt>
 					<div class="publiclass_rq">
-						<div class="publiclass_rqD">19日</div>
-						<div class="publiclass_rqM">10月</div>
+						<div class="publiclass_rqD" th:text="${#dates.format(openClassAll.startDate,'dd')}"></div>
+						<div class="publiclass_rqM" th:text="${#dates.format(openClassAll.startDate,'MM')}"></div>
 					</div>
-					<a href="#" class="publiclass_Pic"><img src="../i/270x155.jpg" width="270" height="155"></a>
+					<a href="#" class="publiclass_Pic"><img src="i/270x155.jpg" width="270" height="155"></a>
 				</dt>
 				<dd>
 					<div class="flcb_cardClass">
-						<h3>托福英语口语强化班</h3>
-						<div class="flcb_cardNum"><span>12345</span>人购买</div>
+						<h3 th:text="${openClassAll.classTitle}"></h3>
+						<div class="flcb_cardNum"><span th:text="${openClassAll.signUpNum}">12345</span>人购买</div>
 					</div>
-					<div class="flcb_cardTime">上课时间：<span>2015-10-29</span><span class="marginR15">12:30--15:30</span>上课地点：<span>YYY频道</span></div>
+					<div class="flcb_cardTime">上课时间：<span th:text="${#dates.format(openClassAll.startDate,'yyyy-MM-dd')}">2015-10-29</span><span class="marginR15" th:text="${#dates.format(openClassAll.startTime,'HH:mm')}+'--'+${#dates.format(openClassAll.endTime,'HH:mm')}">12:30--15:30</span>上课地点：<span th:text="${openClassAll.classMethod}">YYY频道</span></div>
 					<div class="flcb_cardTech">
 						<span class="first">主讲老师：</span>
-						<span class="teacherPic"><img src="../i/22x22.jpg"></span>
-						<span class="name">老师姓名</span>
-						<span class="zan"><a href="###"><img src="../i/icon_zan14x14.jpg"></a></span>
-						<span class="zanNum">(32)</span>
+						<span class="teacherPic"><img src="i/22x22.jpg"></span>
+						<span class="name" th:text="${openClassAll.userName}">老师姓名</span>
+						<span class="zan"><a href="###"><img src="i/icon_zan14x14.jpg"></a></span>
+						<span class="zanNum" th:text="${openClassAll.phraseNum}">(32)</span>
+<!--						<input type="hidden" th:id="${openClassAllStat.index}" th:value="${openClassAllStat.index}">-->
 					</div>
 					<div class="publiclass_Text">
 						<table border="0" cellspacing="0" cellpadding="0">
@@ -147,37 +238,25 @@
 
 					</div>
 					<div class="flcb_cardButton">
-						<a href="../公开课/main.html" target="_parent">课程明细</a>
-						<a href="../支付/购买流程-步骤一.html">报名</a>
-						<a href="../群组聊/组群聊-群聊页.html">进该课程群</a>
+						<a href="openClass/main.html" target="_parent">课程明细</a>
+						<a href="支付/购买流程-步骤一.html">报名</a>
+						<a href="群组聊/组群聊-群聊页.html">进该课程群</a>
 					</div>
 				</dd>
 			</dl>
-
+		</div>
+			</form>
 		</div>
 		<div class="pageList">
 			<ul>
-				<li><span>1</span></li>
-				<li>
-					<a href="###">2</a>
+				<li th:each="navigatepage :${navigatepageNumsAll}">
+					<a th:href="'openClass/getClassById?flag=2&currPageAll='+ ${navigatepage}" th:text="${navigatepage}"></a>
 				</li>
 				<li>
-					<a href="###">3</a>
+					<a  id="prePageAll">上一页</a>
 				</li>
 				<li>
-					<a href="###">4</a>
-				</li>
-				<li>
-					<a href="###">5</a>
-				</li>
-				<li>
-					<a href="###">最后一页</a>
-				</li>
-				<li>
-					<a href="###" class="pret">上一页</a>
-				</li>
-				<li>
-					<a href="###" class="next">下一页</a>
+					<a  id="nextPageAll" >下一页</a>
 				</li>
 			</ul>
 		</div>
@@ -190,93 +269,30 @@
 				<p>1、百度搜索YY客户端或者进入www.yy.com上下载YY语音客户端，下载之后安装到电脑上<br>
 					<span>（温馨提示：Mac系统电脑需要安装虚拟机以及双系统才可以）；</span></p>
 				<p>2、注册账号，并登陆，如右图所示：</p>
-				<div class="tkznPic"><img src="../i/tkzn_1.jpg"></div>
+				<div class="tkznPic"><img src="i/tkzn_1.jpg"></div>
 				<p>3、进入8637之后，点击左下角“教室列表”，教室列表展开之后，跟进教室名称双击进入教室即可！<br><span>如下图所示：</span></p>
-				<div class="tkznPic"><img src="../i/tkzn_2.jpg"></div>
+				<div class="tkznPic"><img src="i/tkzn_2.jpg"></div>
 			</div>
 		</div>
 
 	</div>
 
-
-	<div id="myClassContent" style="display: none;">
-		<div class="publiclass">
-			<dl>
-				<dt>
-					<div class="publiclass_rq">
-						<div class="publiclass_rqD">19日</div>
-						<div class="publiclass_rqM">10月</div>
-					</div>
-					<a href="#" class="publiclass_Pic"><img src="../i/270x155.jpg" width="270" height="155"></a>
-				</dt>
-				<dd>
-					<div class="flcb_cardClass">
-						<h3>托福英语口语强化班</h3>
-						<div class="flcb_cardNum"><span>12345</span>人购买</div>
-					</div>
-					<div class="flcb_cardTime">上课时间：<span>2015-10-29</span><span class="marginR15">12:30--15:30</span>上课地点：<span>YYY频道</span></div>
-					<div class="flcb_cardTech">
-						<span class="first">主讲老师：</span>
-						<span class="teacherPic"><img src="../i/22x22.jpg"></span>
-						<span class="name">老师姓名</span>
-						<span class="zan"><a href="###"><img src="../i/icon_zan14x14.jpg"></a></span>
-						<span class="zanNum">(32)</span>
-					</div>
-					<div class="publiclass_Text">
-						<table border="0" cellspacing="0" cellpadding="0">
-							<tr>
-								<td>课程大纲：</td>
-								<td>1、2016年听力考试课程大纲</td>
-							</tr>
-							<tr>
-								<td></td>
-								<td>2、2016年阅读理解考试课程大纲</td>
-							</tr>
-						</table>
-
-					</div>
-					<div class="flcb_cardButton">
-						<a href="../公开课/main.html" target="_parent">课程明细</a>
-						<a href="../公开课/公开课-发布.html">编辑</a>
-						<a href="">删除</a>
-					</div>
-				</dd>
-			</dl>
-
-		</div>
-		<div class="pageList">
-			<ul>
-				<li><span>1</span></li>
-				<li>
-					<a href="###">2</a>
-				</li>
-				<li>
-					<a href="###">3</a>
-				</li>
-				<li>
-					<a href="###">4</a>
-				</li>
-				<li>
-					<a href="###">5</a>
-				</li>
-				<li>
-					<a href="###">最后一页</a>
-				</li>
-				<li>
-					<a href="###" class="pret">上一页</a>
-				</li>
-				<li>
-					<a href="###" class="next">下一页</a>
-				</li>
-			</ul>
-		</div>
-
-	</div>
-
-
-
-
 </div>
+<script>
+	 $(function(){
+	 	var flag = '[[${#request.getParameter("flag")}]]';
+	 	if(flag=='2'){
+			$(".flcb_cardMenu>ul>li").removeClass("on");
+			$("#newclass").parent().addClass("on");
+			$("#myclassContent").css("display","none");
+			$("#newclassContent").css("display","block");
+			$("#descContent").css("display","none");
+			$("#myClassContent").css("display","none");
+		}
+
+	 });
+
+</script>
 </body>
 
 </html>

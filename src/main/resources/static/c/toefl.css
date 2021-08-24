@@ -31,6 +31,42 @@
 	font-size: 35px;
 	text-align: center;
 }
+.fileUploadLabelOther {
+	width: 240px;
+	height: 240px;
+	line-height: 430px;
+	border: 2px solid  rgba(123, 117, 117, 0.78);
+	color: rgba(123, 117, 117, 0.78);
+	font-size: 10px;
+	text-align: center;
+}
+.fileUploadLabel150{
+	width: 150px;
+	height: 150px;
+	line-height: 430px;
+	border: 2px solid  rgba(123, 117, 117, 0.78);
+	color: rgba(123, 117, 117, 0.78);
+	font-size: 10px;
+	text-align: center;
+}
+.fileUploadLabel60{
+	width: 60px;
+	height: 60px;
+	line-height: 430px;
+	border: 2px solid  rgba(123, 117, 117, 0.78);
+	color: rgba(123, 117, 117, 0.78);
+	font-size: 10px;
+	text-align: center;
+}
+.fileUploadLabel30{
+	width: 30px;
+	height: 30px;
+	line-height: 430px;
+	border: 2px solid  rgba(123, 117, 117, 0.78);
+	color: rgba(123, 117, 117, 0.78);
+	font-size: 10px;
+	text-align: center;
+}
 .btn-circle {  
   width: 30px;  
   height: 30px;  

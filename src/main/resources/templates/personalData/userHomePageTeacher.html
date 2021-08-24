@@ -8,7 +8,6 @@
     <link href="c/base.css" rel="stylesheet" type="text/css">
     <link href="c/toefl.css" rel="stylesheet" type="text/css">
     <link href="c/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <script src="j/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 </head>
 
 
@@ -31,16 +30,16 @@
         </div>
         <div class="flcb_cardUserMenu">
             <ul>
-                    <li class="on"><a href="user/name"  target="infor" class="icon_1" >个人资料</a></li>
-                    <li><a href="openClass/getClassById" target="infor" class="icon_2">我的公开课</a></li>
-                    <li><a href="group/selectGroup" target="infor" class="icon_3">我的群组</a></li>
-                    <li><a href="personalData/myCastle.html" target="infor" class="icon_5">我的福利城堡</a></li>
-                    <li><a href="personalData/myToeflMan.html" target="infor" class="icon_6">我的托福人</a></li>
+                <li class="on"><a href="user/name"  target="infor" class="icon_1" >个人资料</a></li>
+                <li><a href="personalData/myCourse.html" target="infor" class="icon_2">我的公开课</a></li>
+                <li><a href="personalData/myGroup.html" target="infor" class="icon_3">我的群组</a></li>
+                <li><a href="personalData/myCastle.html" target="infor" class="icon_5">我的福利城堡</a></li>
+                <li><a href="personalData/myToeflMan.html" target="infor" class="icon_6">我的托福人</a></li>
             </ul>
         </div>
     </div>
     <div class="doc910 fn-right">
-        <iframe id = "infor" name="infor" src="user/name" style="width: 990px;height: 90vh;" frameborder="no"></iframe>
+        <iframe id = "infor" name="infor" src="user/nameOther" style="width: 990px;height: 90vh;" frameborder="no"></iframe>
     </div>
 
 </div>
@@ -67,12 +66,6 @@
         }, 10000);
 
     }
-
-    $("li").click(function () {
-        $(this).siblings($("li")).removeClass("on");
-        $(this).addClass("on");
-    });
-
 </script>
 
 </body>

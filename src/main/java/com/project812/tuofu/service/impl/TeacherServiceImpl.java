@@ -43,5 +43,15 @@ public class TeacherServiceImpl implements TeacherService {
         teacherDao.deleteTeachers(ids);
     }
 
+    @Override
+    public void updatePassword(Teacher teacher) {
+        teacherDao.updatePassword(teacher);
+    }
+
+    @Override
+    public Teacher getTeacherById(Integer teacherId) {
+        return teacherDao.getTeacherById(teacherId);
+    }
+
 
 }

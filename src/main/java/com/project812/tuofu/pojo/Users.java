@@ -20,6 +20,28 @@ public class Users {
     private String levelName;
     private String levelId;
 
+    @Override
+    public String toString() {
+        return "Users{" +
+                "userId=" + userId +
+                ", loginName='" + loginName + '\'' +
+                ", password='" + password + '\'' +
+                ", sex=" + sex +
+                ", email='" + email + '\'' +
+                ", phoneNum='" + phoneNum + '\'' +
+                ", birthday=" + birthday +
+                ", personalizeSignature='" + personalizeSignature + '\'' +
+                ", imgUrl='" + imgUrl + '\'' +
+                ", userLevel=" + userLevel +
+                ", currencyNum='" + currencyNum + '\'' +
+                ", status=" + status +
+                ", registerTime=" + registerTime +
+                ", lastModify=" + lastModify +
+                ", levelName='" + levelName + '\'' +
+                ", levelId='" + levelId + '\'' +
+                '}';
+    }
+
     public String getLevelId() {
         return levelId;
     }
