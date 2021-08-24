@@ -53,5 +53,10 @@ public class TeacherServiceImpl implements TeacherService {
         return teacherDao.getTeacherById(teacherId);
     }
 
+    @Override
+    public List<Teacher> getTeachers() {
+        return teacherDao.getTeachers();
+    }
+
 
 }

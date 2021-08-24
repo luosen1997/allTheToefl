@@ -12,4 +12,6 @@ public interface WebLinksService {
     public void addLink(Links links);
 
     public void deleteLink(String ids);
+
+    public List<Links> footerLink();
 }

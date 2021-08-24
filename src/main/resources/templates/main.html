@@ -10,6 +10,18 @@
     <script type="text/javascript" src="j/jquery-2.1.0.js"></script>
     <script src="j/bootstrap.min.js"></script>
 
+    <style>
+
+        .re ul>li {
+            /*width: 850px;*/
+            /*height: 330px;*/
+            top: 0px;
+            position: absolute;
+            transition: 2s;
+            opacity: 0;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -21,26 +33,38 @@
         <div class="ppt">
             <!-- 代码 开始 -->
             <div id="playBox">
-                <div class="pre"></div>
-                <div class="next"></div>
-                <div class="smalltitle">
+<!--                <div class="pre"></div>-->
+<!--                <div class="next"></div>-->
+<!--                <div class="smalltitle">-->
+<!--                    <ul>-->
+<!--                        <li class="thistitle"></li>-->
+<!--                        <li></li>-->
+<!--                        <li></li>-->
+<!--                        <li></li>-->
+<!--                        <li></li>-->
+<!--                        <li></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+
+                <div class="re">
                     <ul>
-                        <li class="thistitle"></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li><a href="###" target="_blank"><img src="i/1.jpg" alt=""></a></li>
+                        <li><a href="###" target="_blank"><img src="i/2.jpg" alt=""></a></li>
+                        <li><a href="###" target="_blank"><img src="i/3.jpg" alt=""></a></li>
+                        <li><a href="###" target="_blank"><img src="i/4.jpg" alt=""></a></li>
+                        <li><a href="###" target="_blank"><img src="i/5.jpg" alt=""></a></li>
+                        <li><a href="###" target="_blank"><img src="i/6.jpg" alt=""></a></li>
                     </ul>
+                    <ol>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ol>
                 </div>
-                <ul class="oUlplay">
-                    <li><a href="###" target="_blank"><img src="i/1.jpg"></a></li>
-                    <li><a href="###" target="_blank"><img src="i/2.jpg"></a></li>
-                    <li><a href="###" target="_blank"><img src="i/3.jpg"></a></li>
-                    <li><a href="###" target="_blank"><img src="i/4.jpg"></a></li>
-                    <li><a href="###" target="_blank"><img src="i/5.jpg"></a></li>
-                    <li><a href="###" target="_blank"><img src="i/6.jpg"></a></li>
-                </ul>
+
             </div>
             <!-- 代码 结束 -->
 <!--850-->
@@ -277,8 +301,45 @@
         </div>
     </div>
     <!--页面右侧内容 end-->
-
 </div>
+
+<script>
+    window.onload = function(){
+        var box=this.document.getElementsByClassName("re")[0];
+        var lik=box.getElementsByTagName("li");
+        function fun(i,j){//转换图片函数，就是把透明度改了一下
+            lik[i].style.opacity=1;
+            lik[j].style.opacity=0;
+            lik[j+5].style.backgroundColor="#00000000"
+        }
+        fun(0,1);//初始化下
+        var i =0;
+        function auto(){//轮播循环函数
+            if(++i>=6){
+                i=0;
+                fun(0,6);
+            }
+            else fun(i,i-1);
+        }
+        timer=this.setInterval(auto,3000);
+        box.onmouseover = function () { //鼠标划上去，停止轮播
+            // console.log('good');
+            clearInterval(timer);
+        }
+        box.onmouseout = function () { //鼠标划出，继续轮播
+            timer = setInterval(auto, 2000); //调用定时器
+        }
+        // var j =0;
+        // for(j=0;j<6;j++){//点击小图标也可以转换图片
+        //     lik[j+6].ind=j;
+        //     lik[j+6].onclick=function(){
+        //         fun(this.ind,i)
+        //         i=this.ind;
+        //     }
+        // }
+    }
+
+</script>
 
 <!-- 代码结束 -->
 </body>

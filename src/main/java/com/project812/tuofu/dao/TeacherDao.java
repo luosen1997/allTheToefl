@@ -21,4 +21,6 @@ public interface TeacherDao {
     public void updatePassword(Teacher teacher);
 
     public Teacher getTeacherById(Integer teacherId);
+
+    List<Teacher> getTeachers();
 }

@@ -20,4 +20,6 @@ public interface TeacherService {
     public void updatePassword(Teacher teacher);
 
     public Teacher getTeacherById(Integer teacherId);
+
+    List<Teacher> getTeachers();
 }

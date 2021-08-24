@@ -22,9 +22,13 @@
         <div class="headerUser">
             <ul>
                 <li class="headerUserPic"><a href="###"><img src="i/30x30.png"></a></li>
-                <li class="headerUserName"><a href="###">用户名ABCDEF</a></li>
+                <li class="headerUserName"><a href="###" th:text="${session.admin.loginName}"></a></li>
                 <li class="headerUserNotice">通知<a href="###">14</a></li>
             </ul>
+        </div>
+        <div class="headerLink">
+            <a href="user/logout" class="login-out">注销</a>
+            <!--            <a href="登陆注册/注册页.html" class="###">注册</a>-->
         </div>
     </div>
 </div>
@@ -55,9 +59,9 @@
 
 
                 <li><a href="systemManagePeople/systemManage-tuoFuPeopleList.html" target="ifr">托福人</a></li>
-                <li><a href="systemManagePeople/systemManage-groupList.html" target="ifr">群组聊天</a></li>
-                <li><a href="systemManagePeople/systemManage-openClassList.html" target="ifr">公开课</a></li>
-                <li><a href="systemManagePeople/systemManage-welfareCastleList.html" target="ifr">福利城堡</a></li>
+                <li><a href="group/getGroups" target="ifr">群组聊天</a></li>
+                <li><a href="class/getClasses" target="ifr">公开课</a></li>
+                <li><a href="castle/getCastle" target="ifr">福利城堡</a></li>
             </ul>
         </div>
         <div class="fenxiang">

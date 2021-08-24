@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project812.tuofu.dao.ClassesDao">
+
+    <!-- 实体类属性与数据库的列的对应关系 -->
+    <resultMap type="com.project812.tuofu.pojo.Classes" id="classesMap">
+        <!--column代表数据库中的列名  property代表实体类的属性   javaType代表在java中的数据类型  jdbcType代表在数据库中的数据类型 -->
+        <id column="class_id" property="classId"/>
+        <result column="class_type" property="classType"/>
+        <result column="teacher_id" property="teacherId"/>
+        <result column="group_id" property="groupId"/>
+        <result column="class_title" property="classTitle"/>
+        <result column="start_date" property="startDate"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="fit_person" property="fitPerson"/>
+        <result column="img_url" property="imgUrl"/>
+        <result column="class_desc" property="classDesc"/>
+        <result column="class_method" property="classMethod"/>
+        <result column="class_guide" property="classGuide"/>
+        <result column="last_modify" property="lastModify"/>
+        <result column="signup_num" property="signupNum"/>
+        <result column="status" property="status"/>
+        <result column="user_name" property="userName"/>
+        <result column="type_name" property="typeName"/>
+
+    </resultMap>
+    <update id="closeClasses" parameterType="string">
+        update class_infor set status=2 where class_id in (${ids})
+    </update>
+
+    <update id="recoveryClasses" parameterType="string">
+        update class_infor set status=1 where class_id in (${ids})
+    </update>
+
+    <select id="getClasses" resultMap="classesMap">
+            select * from class_infor left join sys_teacher on class_infor.teacher_id = sys_teacher.teacher_id
+            left join dic_class_type on class_infor.class_type = dic_class_type.type_id
+            <where>
+                <if test="classTitle!=null and classTitle!=''" >
+                    and class_title like '%${classTitle}%'
+                </if>
+<!--                <if test="userName!=null and userName!=''">-->
+<!--                    and userName like '%${user_name}%'-->
+<!--                </if>-->
+                <if test="typeName!=null and typeName!=''">
+                    and type_name like '%${typeName}%'
+                </if>
+            </where>
+    </select>
+
+    <delete id="deleteClasses" parameterType="string">
+        delete from class_infor where class_id in (${ids})
+    </delete>
+
+</mapper>
