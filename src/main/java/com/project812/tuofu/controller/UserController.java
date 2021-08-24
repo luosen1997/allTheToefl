@@ -65,7 +65,7 @@ public class UserController {
 
             return "teacher";
         } else if (usersService.login2(admin) != null) {
-
+            session.setAttribute("admin",admin);
 
             return "admin";
         }

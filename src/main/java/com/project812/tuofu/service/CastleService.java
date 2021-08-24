@@ -1,4 +1,4 @@
-package com.project812.tuofu.service.impl;
+package com.project812.tuofu.service;
 
 import com.project812.tuofu.pojo.Castle;
 

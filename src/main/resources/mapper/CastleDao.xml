@@ -47,9 +47,7 @@
     </delete>
 
     <select id="getCastle" resultMap="castleMap">
-        select * from castle_infor left join sys_teacher on castle_infor.teacher_id=sys_teacher.teacher_id
-            left join dic_castle_type on  castle_infor.castle_type=dic_castle_type.type_id
-            left join dic_mall_type on castle_infor.mall_type=dic_mall_type.type_id
+        select * from castle_infor left join sys_teacher on castle_infor.teacher_id=sys_teacher.teacher_id left join dic_castle_type on  castle_infor.castle_type=dic_castle_type.type_id left join dic_mall_type on castle_infor.mall_type=dic_mall_type.type_id
         <where>
             <if test="classTitle!=null and classTitle!=''">
                 and class_title like '%${classTitle}%'

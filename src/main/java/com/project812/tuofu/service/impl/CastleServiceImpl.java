@@ -2,13 +2,14 @@ package com.project812.tuofu.service.impl;
 
 import com.project812.tuofu.dao.CastleDao;
 import com.project812.tuofu.pojo.Castle;
+import com.project812.tuofu.service.CastleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class CastleServiceImpl implements CastleService{
+public class CastleServiceImpl implements CastleService {
 
     @Autowired
     CastleDao castleDao;

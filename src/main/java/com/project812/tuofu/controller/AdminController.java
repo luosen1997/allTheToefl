@@ -85,6 +85,7 @@ public class AdminController {
     @RequestMapping("/footerLink")
     public String footerLink(Model model){
         List<Links> links = webLinksService.footerLink();
+        System.out.println(links);
         model.addAttribute("links",links);
         return "footer";
 

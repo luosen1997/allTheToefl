@@ -17,23 +17,23 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/group")
-public class GroupController {
+public class GroupController{
     @Autowired
     GroupService groupService;
-
     @Autowired
     GroupsService groupsService;
+
     @GetMapping("/selectGroup")
-    public String selectGroup(HttpSession session, Model model){
+    public String selectGroup(HttpSession session, Model model) {
         Users user = (Users) session.getAttribute("user");
-        String ids=groupService.selectGroupId(user.getUserId());
-        List<Group> groupList =groupService.selectGroup(ids);
-        model.addAttribute("groupList",groupList);
+        String ids = groupService.selectGroupId(user.getUserId());
+        List<Group> groupList = groupService.selectGroup(ids);
+        model.addAttribute("groupList", groupList);
         return "success";
 
 
-
-    @GetMapping(value = {"/getGroups"})
+    }
+    @GetMapping("/getGroups")
     public String getGroups(String groupName, Date createTime, Model model){
         //@RequestParam(value="page", required = false,defaultValue = "1")
 
@@ -45,7 +45,7 @@ public class GroupController {
         List<Groups> list =groupsService.getGroups(groups);
 
         model.addAttribute("list",list);
-
+        System.out.println(list);
         return "systemManagePeople/systemManage-groupList";
     }
 

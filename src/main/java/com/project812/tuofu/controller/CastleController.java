@@ -1,7 +1,7 @@
 package com.project812.tuofu.controller;
 
 import com.project812.tuofu.pojo.Castle;
-import com.project812.tuofu.service.impl.CastleService;
+import com.project812.tuofu.service.CastleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

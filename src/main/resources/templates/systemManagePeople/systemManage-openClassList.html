@@ -110,8 +110,10 @@
 						<td th:text="${class.userName}"></td>
 						<td th:text="${#dates.format(class.startDate,'yyyy-MM-dd')}"></td>
 						<td th:text="${class.startTime}"></td>
-						<td th:if="${class.status==1}" th:value="1">正常</td>
-						<td th:if="${class.status==2}" th:value="2">关闭</td>
+						<td th:if="${class.status=='1'}" th:value="1">正常</td>
+						<td th:if="${class.status=='2'}" th:value="2">关闭</td>
+<!--						<td th:if="${userList.status==1}" th:value="1">冷冻</td>-->
+<!--						<td th:if="${userList.status==2}" th:value="2">正常</td>-->
 					</tr>
 
 				</table>
