@@ -14,4 +14,5 @@ public interface WebLinksDao {
 
     public void deleteLink(@Param("ids") String ids);
 
+    public List<Links> footerLink();
 }

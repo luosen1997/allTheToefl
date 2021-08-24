@@ -9,12 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import javax.servlet.http.HttpServletResponse;
-
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
@@ -64,9 +61,9 @@ public class AdminController {
     @ResponseBody
     @PostMapping(value = "/addLink")
     public String addLink(String linkName,String linkUrl,String relateUnit,String linkDesc){
-        System.out.println(linkName);
-        System.out.println(linkUrl);
-        System.out.println(relateUnit);
+//        System.out.println(linkName);
+//        System.out.println(linkUrl);
+//        System.out.println(relateUnit);
         Links links = new Links();
         links.setLinkName(linkName);
         links.setLinkUrl(linkUrl);
@@ -82,6 +79,15 @@ public class AdminController {
         webLinksService.deleteLink(ids);
 
         return "redirect:/admin/getWebLinks";
+    }
+
+
+    @RequestMapping("/footerLink")
+    public String footerLink(Model model){
+        List<Links> links = webLinksService.footerLink();
+        model.addAttribute("links",links);
+        return "footer";
+
     }
 
 }
