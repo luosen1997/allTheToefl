@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project812.tuofu.dao.GroupsDao">
+
+    <!-- 实体类属性与数据库的列的对应关系 -->
+    <resultMap type="com.project812.tuofu.pojo.Groups" id="groupsMap">
+    <!--column代表数据库中的列名  property代表实体类的属性   javaType代表在java中的数据类型  jdbcType代表在数据库中的数据类型 -->
+    <id column="group_id" property="groupId"/>
+    <result column="user_name" property="userName"/>
+    <result column="group_type" property="groupType"/>
+    <result column="group_name" property="groupName"/>
+    <result column="img_url" property="imgUrl"/>
+    <result column="group_desc" property="groupDesc"/>
+    <result column="group_rule" property="groupRule"/>
+    <result column="create_teacher" property="createTeacher"/>
+    <result column="status" property="status"/>
+    <result column="create_time" property="createTime"/>
+    <result column="last_modify" property="lastModify"/>
+    <result column="chat_id" property="chatId"/>
+    <result column="group_admin_id" property="groupAdminId"/>
+    </resultMap>
+
+
+    <delete id="deleteGroups" parameterType="string">
+        delete from group_infor where group_id in (${ids})
+    </delete>
+
+    <select id="getGroups" resultMap="groupsMap">
+        select * from group_infor left join group_chat on group_infor.group_id=group_chat.group_id left join group_user on group_infor.group_id=group_user.group_id left join sys_teacher on group_infor.create_teacher=sys_teacher.teacher_id
+        <where>
+            <if test="groupName!=null and groupName!=''" >
+                and groupName like '%${group_name}%'
+            </if>
+            <if test="createTime !=null and createTime !=''">
+                and createTime like '%${create_time}%'
+            </if>
+        </where>
+    </select>
+
+
+
+</mapper>

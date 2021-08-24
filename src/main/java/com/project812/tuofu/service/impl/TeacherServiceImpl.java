@@ -1,7 +1,6 @@
 package com.project812.tuofu.service.impl;
 
 import com.project812.tuofu.dao.TeacherDao;
-import com.project812.tuofu.pojo.Education;
 import com.project812.tuofu.pojo.Teacher;
 import com.project812.tuofu.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +40,11 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public void deleteTeachers(String ids) {
         teacherDao.deleteTeachers(ids);
+    }
+
+    @Override
+    public List<Teacher> getTeachers() {
+        return teacherDao.getTeachers();
     }
 
 

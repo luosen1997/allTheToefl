@@ -1,14 +1,9 @@
 package com.project812.tuofu.controller;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.project812.tuofu.pojo.*;
-import com.project812.tuofu.service.EducationService;
-import com.project812.tuofu.service.LevelService;
-import com.project812.tuofu.service.TeacherService;
-import com.project812.tuofu.service.UsersService;
-import org.mybatis.spring.annotation.MapperScan;
+import com.project812.tuofu.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -243,4 +238,6 @@ public class UserController {
 
         return "redirect:/user/getTeachers";
     }
+
+
 }

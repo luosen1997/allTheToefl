@@ -1,6 +1,5 @@
 package com.project812.tuofu.dao;
 
-import com.project812.tuofu.pojo.Education;
 import com.project812.tuofu.pojo.Teacher;
 
 import java.util.List;
@@ -16,4 +15,6 @@ public interface TeacherDao {
     public void addTeacher(Teacher teacher);
 
     public void deleteTeachers(String ids);
+
+    List<Teacher> getTeachers();
 }

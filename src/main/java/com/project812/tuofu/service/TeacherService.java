@@ -1,6 +1,5 @@
 package com.project812.tuofu.service;
 
-import com.project812.tuofu.pojo.Education;
 import com.project812.tuofu.pojo.Teacher;
 
 import java.util.List;
@@ -15,4 +14,6 @@ public interface TeacherService {
     public void addTeacher(Teacher teacher);
 
     public void deleteTeachers(String ids);
+
+    List<Teacher> getTeachers();
 }

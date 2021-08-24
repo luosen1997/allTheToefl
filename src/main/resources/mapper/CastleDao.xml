@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project812.tuofu.dao.CastleDao">
+
+    <!-- 实体类属性与数据库的列的对应关系 -->
+    <resultMap type="com.project812.tuofu.pojo.Castle" id="castleMap">
+        <!--column代表数据库中的列名  property代表实体类的属性   javaType代表在java中的数据类型  jdbcType代表在数据库中的数据类型 -->
+        <id column="castle_id" property="castleId"/>
+        <result column="castle_type" property="castleType"/>
+        <result column="mall_type" property="mallType"/>
+        <result column="teacher_id" property="teacherId"/>
+        <result column="user_name" property="userName"/>
+        <result column="group_id" property="groupId"/>
+        <result column="class_title" property="classTitle"/>
+        <result column="start_date" property="startDate"/>
+        <result column="end_date" property="endDate"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="castle_cycle" property="castleCycle"/>
+        <result column="fit_person" property="fitPerson"/>
+        <result column="castle_pay" property="castlePay"/>
+        <result column="castle_address" property="castleAddress"/>
+        <result column="img_url" property="imgUrl"/>
+        <result column="castle_desc" property="castleDesc"/>
+        <result column="castle_method" property="castleMethod"/>
+        <result column="last_modify" property="lastModify"/>
+        <result column="signup_num" property="signupNum"/>
+        <result column="collect_num" property="collectNum"/>
+        <result column="comment_num" property="commentNum"/>
+        <result column="status" property="status"/>
+        <result column="type_name1" property="mallTypeName"/>
+        <result column="type_name" property="castleTypeName"/>
+
+    </resultMap>
+    <update id="closeCastle" parameterType="string">
+        update from castle_infor set status=1 where castle_id in (${ids})
+    </update>
+
+    <update id="recoveryCastle" parameterType="string">
+        update from castle_infor set status=0 where castle_id in (${ids})
+    </update>
+
+    <delete id="deleteCastle" parameterType="string">
+        delete from castle_infor where castle_id in (${ids})
+    </delete>
+
+    <select id="getCastle" resultMap="castleMap">
+        select * from castle_infor left join sys_teacher on castle_infor.teacher_id=sys_teacher.teacher_id
+            left join dic_castle_type on  castle_infor.castle_type=dic_castle_type.type_id
+            left join dic_mall_type on castle_infor.mall_type=dic_mall_type.type_id
+        <where>
+            <if test="classTitle!=null and classTitle!=''">
+                and class_title like '%${classTitle}%'
+            </if>
+            <if test="userName!=null and userName!=''">
+                and userName like '%${user_name}%'
+            </if>
+            <if test="castleTypeName!=null and castleTypeName!=''">
+                and type_name like '%${castleTypeName}%'
+            </if>
+        </where>
+    </select>
+
+
+</mapper>
