@@ -25,5 +25,9 @@
     <delete id="deleteLink" parameterType="String">
         delete from sys_link where  link_id in(${ids})
     </delete>
+
+    <select id="footerLink" resultMap="linksMap">
+        select * from sys_link
+    </select>
 </mapper>
 

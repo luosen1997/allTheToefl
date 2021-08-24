@@ -1,7 +1,5 @@
 package com.project812.tuofu.pojo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
 
 public class Links {

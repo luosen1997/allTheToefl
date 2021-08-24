@@ -28,5 +28,8 @@ public class WebLinksServiceImpl implements WebLinksService {
         webLinksDao.deleteLink(ids);
     }
 
-
+    @Override
+    public List<Links> footerLink() {
+        return webLinksDao.footerLink();
+    }
 }

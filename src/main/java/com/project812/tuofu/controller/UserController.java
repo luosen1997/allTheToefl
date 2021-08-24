@@ -58,12 +58,12 @@ public class UserController {
             session.setAttribute("user",user);
             return "user";
         } else if(usersService.login1(teacher) != null){
-            System.out.println(666);
-            session.setAttribute("user",user);
+//            System.out.println(666);
+            session.setAttribute("user",teacher);
             return "teacher";
         }else if(usersService.login2(admin) != null){
 
-
+            session.setAttribute("admin",admin);
             return "admin";
         }
         return "false";
@@ -83,6 +83,14 @@ public class UserController {
 
         usersService.register(user);
         return "success";
+    }
+
+    @RequestMapping("/logout")
+    public String logout(HttpSession session) {
+
+        session.invalidate();//注销当前会话
+
+        return "loginRegister/login";
     }
 
 

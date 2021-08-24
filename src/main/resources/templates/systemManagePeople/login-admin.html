@@ -22,9 +22,13 @@
         <div class="headerUser">
             <ul>
                 <li class="headerUserPic"><a href="###"><img src="i/30x30.png"></a></li>
-                <li class="headerUserName"><a href="###">用户名ABCDEF</a></li>
+                <li class="headerUserName"><a href="###" th:text="${session.admin.loginName}"></a></li>
                 <li class="headerUserNotice">通知<a href="###">14</a></li>
             </ul>
+        </div>
+        <div class="headerLink">
+            <a href="user/logout" class="login-out">注销</a>
+            <!--            <a href="登陆注册/注册页.html" class="###">注册</a>-->
         </div>
     </div>
 </div>
