@@ -78,7 +78,6 @@ public class UserController {
     public String register(String loginName, String password, String email) {
 //        System.out.println(loginName);
 
-
         Users user = new Users();
         int i = 1;
         user.setSex(1);
@@ -91,11 +90,11 @@ public class UserController {
     }
 
 
-    @GetMapping("/loginRegister")
-    public String loginRegister(HttpSession session) {
+    @RequestMapping("/logout")
+    public String logout(HttpSession session) {
 
-        session.removeAttribute("teacher");
-        session.removeAttribute("user");
+        session.invalidate();//注销当前会话
+
         return "loginRegister/login";
     }
 
